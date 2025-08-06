@@ -36,6 +36,6 @@ export default defineConfig({
   preview: {
     port: 4173,
     host: true,
-    allowedHosts: ["wed-production-6dd9.up.railway.app"],
+    allowedHosts: ["wedding-2-production.up.railway.app"],
   },
 });
