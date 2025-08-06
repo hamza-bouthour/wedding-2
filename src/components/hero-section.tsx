@@ -35,7 +35,7 @@ export default function HeroSection({ invitation }: HeroSectionProps) {
         </h1>
         
         <p className="font-script text-2xl md:text-3xl text-gray-600 mb-6">
-          are getting married!
+          we got married, now we party!
         </p>
         
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl max-w-md mx-auto mb-8">
