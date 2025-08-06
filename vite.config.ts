@@ -36,6 +36,6 @@ export default defineConfig({
   preview: {
     port: 4173,
     host: true,
-    allowedHosts: ["wedding-2-production.up.railway.app"],
+    allowedHosts: ["www.hamza-andrea.com"],
   },
 });
