@@ -34,14 +34,14 @@ export default function HeroSection({ invitation }: HeroSectionProps) {
           {invitation.groomName} <span className="text-blush">&</span> {invitation.brideName}
         </h1>
         
-        <p className="font-script text-2xl md:text-3xl text-gray-600 mb-6">
+        <p className="font-script text-2xl md:text-3xl text-gray-600 mb-6" style={{ color: "lightgray" }}>
           we got married, now we party!
         </p>
         
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl max-w-md mx-auto mb-8" style={{ boxShadow: '1px 4px 17px -1px gray' }}>
           <div className="text-sage font-semibold text-lg mb-2">Save the Date</div>
           <div className="font-display text-3xl text-deep-sage font-bold">{invitation.weddingDate}</div>
-          <div className="text-gray-600 mt-2">{invitation.receptionVenue}</div>
+          <div className="text-gray-600 mt-2" style={{ color: "lightgray" }}>{invitation.receptionVenue}</div>
         </div>
         
 
