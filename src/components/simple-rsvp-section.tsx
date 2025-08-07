@@ -70,7 +70,6 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
       guestCount: data.attending === "true" ? data.guestCount : "0",
       message: data.message || "No message provided",
     };
-    console.log("Template Params:", templateParams);
     await emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
