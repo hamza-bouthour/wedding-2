@@ -30,8 +30,8 @@ export default function HeroSection({ invitation }: HeroSectionProps) {
           />
         </div>
         
-        <h1 className="font-display text-5xl md:text-7xl font-bold text-deep-sage mb-4">
-          {invitation.groomName} <span className="text-blush">&</span> {invitation.brideName}
+        <h1 className="font-display text-5xl md:text-7xl font-bold text-deep-sage mb-4" style={{ color: "hsl(39, 77%, 83%)" }}>
+          {invitation.groomName} <span className="text-blush" style={{ color: "hsl(39, 77%, 83%)" }}>&</span> {invitation.brideName}
         </h1>
         
         <p className="font-script text-2xl md:text-3xl text-gray-600 mb-6" style={{ color: "lightgray" }}>
