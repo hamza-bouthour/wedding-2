@@ -227,21 +227,6 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
           </form>
         </Form>
       </div>
-
-      <div className="text-center mt-12">
-        <h3 className="font-display text-2xl text-deep-sage mb-6">Stay Connected</h3>
-        <div className="flex justify-center space-x-6">
-          <a href="#" className="text-deep-sage hover:text-blush transition-colors">
-            <Instagram className="h-6 w-6" />
-          </a>
-          <a href="#" className="text-deep-sage hover:text-blush transition-colors">
-            <Facebook className="h-6 w-6" />
-          </a>
-          <a href="mailto:hamza.andrea.wedding@example.com" className="text-deep-sage hover:text-blush transition-colors">
-            <Mail className="h-6 w-6" />
-          </a>
-        </div>
-      </div>
     </section>
   );
 }
