@@ -20,7 +20,7 @@ export default function InvitationPage({ params }: InvitationPageProps) {
   const guest = guestName ? getGuestByName(guestName) : undefined;
 
   return (
-    <div className="font-body text-gray-800 bg-cream">
+    <div style={{ backgroundColor: "#470c17" }} className="font-body text-gray-800 bg-cream">
       <HeroSection invitation={invitation} />
       {guestName && guest && (
         <PersonalizedSection guest={guest} invitation={invitation} />
