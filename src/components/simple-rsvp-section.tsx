@@ -2,23 +2,39 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Heart, Instagram, Facebook, Mail, CheckCircle } from "lucide-react";
+import { Heart, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Invitation } from "@/data/guestData";
+import emailjs from "@emailjs/browser";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const rsvpSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Please enter a valid email"),
-  attending: z.enum(["true", "false"], { required_error: "Please select if you'll be attending" }),
+  attending: z.enum(["true", "false"], {
+    required_error: "Please select if you'll be attending",
+  }),
   guestCount: z.string().min(1, "Please select number of guests"),
   message: z.string().optional(),
 });
@@ -32,7 +48,7 @@ interface RsvpSectionProps {
 export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
+
   const form = useForm<RsvpFormData>({
     resolver: zodResolver(rsvpSchema),
     defaultValues: {
@@ -46,15 +62,28 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
   });
 
   const onSubmit = async (data: RsvpFormData) => {
-    // Simulate form submission
-    console.log("RSVP Data:", data);
-    
+    const templateParams = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      attending: data.attending === "true" ? "Yes" : "No",
+      guestCount: data.attending === "true" ? data.guestCount : "0",
+      message: data.message || "No message provided",
+    };
+    console.log("Template Params:", templateParams);
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      templateParams,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
     // Show success message
     toast({
       title: "RSVP Submitted!",
       description: `Thank you ${data.firstName}! We've received your RSVP.`,
     });
-    
+
     setIsSubmitted(true);
     form.reset();
   };
@@ -72,7 +101,7 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
           <p className="text-lg text-gray-600 mb-8">
             Your RSVP has been received. We can't wait to celebrate with you!
           </p>
-          <Button 
+          <Button
             onClick={() => setIsSubmitted(false)}
             variant="outline"
             className="border-deep-sage text-deep-sage hover:bg-deep-sage hover:text-white"
@@ -116,7 +145,7 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="lastName"
@@ -139,7 +168,11 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="your.email@example.com" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="your.email@example.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -160,11 +193,15 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="true" id="attending-yes" />
-                        <Label htmlFor="attending-yes">Yes, I'll be there!</Label>
+                        <Label htmlFor="attending-yes">
+                          Yes, I'll be there!
+                        </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="false" id="attending-no" />
-                        <Label htmlFor="attending-no">Sorry, I can't make it</Label>
+                        <Label htmlFor="attending-no">
+                          Sorry, I can't make it
+                        </Label>
                       </div>
                     </RadioGroup>
                   </FormControl>
@@ -180,7 +217,10 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Number of Guests</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select number of guests" />
@@ -207,10 +247,10 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
                 <FormItem>
                   <FormLabel>Message (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Leave a sweet message for the happy couple..."
                       className="min-h-[100px]"
-                      {...field} 
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,8 +258,8 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
               )}
             />
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-deep-sage hover:bg-deep-sage/90 text-white font-semibold py-3"
             >
               Submit RSVP
@@ -227,6 +267,21 @@ export default function SimpleRsvpSection({ invitation }: RsvpSectionProps) {
           </form>
         </Form>
       </div>
+
+      {/* <div className="text-center mt-12">
+        <h3 className="font-display text-2xl text-deep-sage mb-6">Stay Connected</h3>
+        <div className="flex justify-center space-x-6">
+          <a href="#" className="text-deep-sage hover:text-blush transition-colors">
+            <Instagram className="h-6 w-6" />
+          </a>
+          <a href="#" className="text-deep-sage hover:text-blush transition-colors">
+            <Facebook className="h-6 w-6" />
+          </a>
+          <a href="mailto:hamza.andrea.wedding@example.com" className="text-deep-sage hover:text-blush transition-colors">
+            <Mail className="h-6 w-6" />
+          </a>
+        </div>
+      </div> */}
     </section>
   );
 }
