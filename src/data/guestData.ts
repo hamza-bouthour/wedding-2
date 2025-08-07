@@ -33,16 +33,14 @@ export const invitation: Invitation = {
   proposalText:
     "Under the same stars where we first shared our dreams, Hamza got down on one knee in our favorite spot overlooking the ocean. With tears of joy and hearts full of love, Andrea said yes to forever together.",
   photos: [
-    "/photos/ph-0.jpg",
-    "/photos/ph-1.jpg",
-    "/photos/ph-2.jpg",
-    "/photos/ph-3.jpg",
     "/photos/ph-4.jpg",
+    "/photos/ph-1.jpg",
+    "/photos/ph-12.jpeg",
+    "/photos/ph-14.jpeg",
     "/photos/ph-5.jpg",
     "/photos/ph-6.jpg",
-    "/photos/ph-7.jpeg",
-    "/photos/ph-8.jpeg",
-    "/photos/ph-9.jpeg",
+    "/photos/ph-10.jpeg",
+    "/photos/ph-13.jpeg",
   ],
 };
 
